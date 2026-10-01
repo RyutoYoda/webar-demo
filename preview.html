@@ -33,14 +33,19 @@
   <a-entity light="type: ambient; color: #9aa3b4; intensity: 0.95"></a-entity>
   <a-entity light="type: directional; intensity: 0.7" position="1 2 1"></a-entity>
 
-  <!-- AR時はマーカー面が水平なので、ここでも机の上に置いた想定で低い位置に出し、
-       上から見下ろす角度にしている（ラベルが面に寝ているため） -->
-  <a-entity position="0 0.92 -2.55" rotation="0 24 0"
-            animation="property: rotation; from: 0 24 0; to: 0 384 0; dur: 45000; loop: true; easing: linear">
-    <a-entity lineage-overlay></a-entity>
+  <!-- ARではマーカーを机に平置きして上から見下ろすので、ラベルは面に寝かせてある。
+       このページにはマーカーが無く正面から見ることになるため、グラフの面ごと
+       手前に倒して、見下ろしているのと同じ角度になるようにしている。
+       内側のY回転は、机の上でグラフを回しているのと同じ向きの首振り。 -->
+  <a-entity position="0 1.36 -2.8" rotation="42 0 0" scale="1.3 1.3 1.3">
+    <a-entity lineage-overlay
+              animation="property: rotation; from: 0 -16 0; to: 0 16 0;
+                         dur: 10000; dir: alternate; loop: true; easing: easeInOutSine"></a-entity>
   </a-entity>
 
-  <a-entity camera look-controls wasd-controls position="0 1.6 0"></a-entity>
+  <!-- 画角を狭めて遠くから撮っている。既定の80度だと手前のノードだけ極端に
+       大きくなり、グラフの形が読み取れなくなるため -->
+  <a-entity camera="fov: 45" look-controls wasd-controls position="0 1.6 0"></a-entity>
 </a-scene>
 
 </body>
